@@ -3,26 +3,40 @@ import {
   useActions,
   TldrawUiMenuItem,
   useEditor,
-  useExportAs,
 } from '@tldraw/tldraw';
+import svg64 from 'svg64';
+declare var window: any;
 
 export const CustomQuickAction = () => {
   const actions = useActions();
-  // const exportAs = useExportAs();
   console.log('action: ', actions);
   const editor = useEditor();
-  const shapes = editor.getRenderingShapes();
 
   const onDelete = () => {
-    editor.deleteShapes(shapes.map(i => i.id));
+    const _shapes = editor.getRenderingShapes();
+    console.log('shapes: ', _shapes);
+    editor.batch(() => {
+      editor.deleteShapes(_shapes.map(i => i.id));
+      editor.bailToMark('draw');
+    });
   };
 
   const onExportPng = async () => {
-    const data = await editor.getSvg(
-      shapes.map(i => i.id),
+    const _shapes = editor.getRenderingShapes();
+    const svgData = await editor.getSvg(
+      _shapes.map(i => i.id),
       { background: false },
     );
-    console.log('data: ', data);
+    if (window.ReactNativeWebView) {
+      const base64Data = svg64(svgData || '');
+      window.ReactNativeWebView.postMessage(base64Data);
+    }
+  };
+
+  const onChangeBackground = () => {
+    editor.updateInstanceState({
+      isGridMode: !editor.getInstanceState().isGridMode,
+    });
   };
 
   return (
@@ -35,7 +49,14 @@ export const CustomQuickAction = () => {
         onSelect={onDelete}
       />
       <TldrawUiMenuItem
-        {...actions['export-as-png']}
+        id={'fill-pattern'}
+        icon="fill-pattern"
+        disabled={false}
+        onSelect={onChangeBackground}
+      />
+      <TldrawUiMenuItem
+        id={'fill-pattern'}
+        icon="export-as-png"
         disabled={false}
         onSelect={onExportPng}
       />

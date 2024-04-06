@@ -21,6 +21,7 @@ import {
 import classNames from 'classnames';
 import { PORTRAIT_BREAKPOINT } from '../../constant';
 import { CustomMobileStylePanel } from './CustomMobileStylePanel';
+import { ExitPenMode } from './ExitPenMode';
 
 const isActiveTLUiToolItem = (
   item: TLUiToolItem,
@@ -133,7 +134,7 @@ export const CustomToolbar = React.memo(function CustomToolbar() {
                 breakpoint < PORTRAIT_BREAKPOINT.TABLET_SM,
             })}>
             {/* Main panel items */}
-            {customToolbarItems.map(({ toolItem }) => {
+            {/* {customToolbarItems.map(({ toolItem }) => {
               return (
                 <ToolbarButton
                   key={toolItem.id}
@@ -146,7 +147,7 @@ export const CustomToolbar = React.memo(function CustomToolbar() {
                   )}
                 />
               );
-            })}
+            })} */}
           </div>
         </div>
         <div className="tlui-toolbar__tools">
