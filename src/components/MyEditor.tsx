@@ -1,10 +1,10 @@
 import React from 'react';
-import { TLComponents, Tldraw, HandTool } from 'tldraw';
+import { TLComponents, Tldraw } from 'tldraw';
 import { CustomToolbar } from './custom/CustomToolbar';
 import { CustomQuickAction } from './custom/CustomQuickAction';
-import { uiOverrides } from './custom-config/ui-overrides';
 import { CustomStylePanel } from './custom/CustomStylePanel';
 import { CustomHelperButton } from './custom/CustomHelperButtons';
+import { CustomUI } from './custom/CustomUI';
 
 const components: TLComponents = {
   ContextMenu: null,
@@ -53,8 +53,9 @@ export default function MyEditor() {
             isDarkMode: false,
           });
           // editor.on('event', event => handleEvent(event, editor));
-        }}
-      />
+        }}>
+        <CustomUI />
+      </Tldraw>
     </div>
   );
 }

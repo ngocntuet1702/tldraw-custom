@@ -1,0 +1,25 @@
+.custom-layout {
+  position: absolute;
+  inset: 0px;
+  z-index: 300;
+  pointer-events: none;
+}
+
+.custom-button {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  pointer-events: all;
+  padding: 4px;
+  background: white;
+  /* border: 1px solid black; */
+  /* border-radius: 64px; */
+  border: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.custom-button[data-isactive='true'] {
+  background-color: black;
+  color: white;
+}

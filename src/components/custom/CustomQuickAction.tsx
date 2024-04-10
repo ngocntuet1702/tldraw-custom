@@ -4,8 +4,6 @@ import {
   TldrawUiMenuItem,
   useEditor,
 } from '@tldraw/tldraw';
-import svg64 from 'svg64';
-declare var window: any;
 
 export const CustomQuickAction = () => {
   const actions = useActions();
@@ -19,18 +17,6 @@ export const CustomQuickAction = () => {
       editor.deleteShapes(_shapes.map(i => i.id));
       editor.bailToMark('draw');
     });
-  };
-
-  const onExportPng = async () => {
-    const _shapes = editor.getRenderingShapes();
-    const svgData = await editor.getSvg(
-      _shapes.map(i => i.id),
-      { background: false },
-    );
-    if (window.ReactNativeWebView) {
-      const base64Data = svg64(svgData || '');
-      window.ReactNativeWebView.postMessage(base64Data);
-    }
   };
 
   const onChangeBackground = () => {
@@ -53,12 +39,6 @@ export const CustomQuickAction = () => {
         icon="fill-pattern"
         disabled={false}
         onSelect={onChangeBackground}
-      />
-      <TldrawUiMenuItem
-        id={'fill-pattern'}
-        icon="export-as-png"
-        disabled={false}
-        onSelect={onExportPng}
       />
     </DefaultQuickActions>
   );
