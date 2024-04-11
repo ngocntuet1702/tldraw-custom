@@ -16,7 +16,11 @@ export const CustomUI = track(() => {
     );
     if (window.ReactNativeWebView) {
       const base64Data = svg64(svgData || '');
-      window.ReactNativeWebView.postMessage(base64Data);
+      const data = {
+        type: 'save',
+        data: base64Data,
+      };
+      window.ReactNativeWebView.postMessage(JSON.stringify(data));
     }
   };
 

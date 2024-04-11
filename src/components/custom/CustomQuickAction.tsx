@@ -5,6 +5,8 @@ import {
   useEditor,
 } from '@tldraw/tldraw';
 
+declare var window: any;
+
 export const CustomQuickAction = () => {
   const actions = useActions();
   console.log('action: ', actions);
@@ -12,7 +14,15 @@ export const CustomQuickAction = () => {
 
   const onDelete = () => {
     const _shapes = editor.getRenderingShapes();
-    console.log('shapes: ', _shapes);
+
+    if (window.ReactNativeWebView) {
+      const data = {
+        type: 'delete',
+        data: '',
+      };
+      window.ReactNativeWebView.postMessage(JSON.stringify(data));
+    }
+
     editor.batch(() => {
       editor.deleteShapes(_shapes.map(i => i.id));
       editor.bailToMark('draw');
