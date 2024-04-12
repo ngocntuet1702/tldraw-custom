@@ -1,6 +1,5 @@
-import { track, useEditor } from '@tldraw/tldraw';
+import { exportToBlob, track, useEditor } from '@tldraw/tldraw';
 import React from 'react';
-import svg64 from 'svg64';
 import './custom-ui.css';
 
 declare var window: any;
@@ -10,18 +9,25 @@ export const CustomUI = track(() => {
 
   const onSave = async () => {
     const _shapes = editor.getRenderingShapes();
-    const svgData = await editor.getSvg(
-      _shapes.map(i => i.id),
-      { background: false },
-    );
-    if (window.ReactNativeWebView) {
-      const base64Data = svg64(svgData || '');
-      const data = {
-        type: 'save',
-        data: base64Data,
-      };
-      window.ReactNativeWebView.postMessage(JSON.stringify(data));
-    }
+    const blob = await exportToBlob({
+      editor,
+      ids: _shapes.map(i => i.id),
+      format: 'jpeg',
+      opts: { padding: 30, scale: 4, darkMode: false },
+    });
+
+    const reader = new FileReader();
+    reader.readAsDataURL(blob);
+    reader.onloadend = function () {
+      var base64Data = reader.result;
+      if (window.ReactNativeWebView) {
+        const data = {
+          type: 'save',
+          data: base64Data,
+        };
+        window.ReactNativeWebView.postMessage(JSON.stringify(data));
+      }
+    };
   };
 
   return (
