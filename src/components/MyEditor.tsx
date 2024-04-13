@@ -1,9 +1,11 @@
 import React from 'react';
 import { TLComponents, Tldraw } from 'tldraw';
-import { CustomToolbar } from './custom/CustomToolbar';
-import { CustomQuickAction } from './custom/CustomQuickAction';
-import { CustomStylePanel } from './custom/CustomStylePanel';
-import { CustomHelperButton } from './custom/CustomHelperButtons';
+import {
+  CustomHelperButton,
+  CustomQuickAction,
+  CustomStylePanel,
+  CustomToolbar,
+} from './custom';
 import { CustomUI } from './custom/CustomUI';
 
 const components: TLComponents = {

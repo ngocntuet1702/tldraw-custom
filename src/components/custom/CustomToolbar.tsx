@@ -14,14 +14,12 @@ import React, { useMemo } from 'react';
 import {
   GeoShapeGeoStyle,
   preventDefault,
-  track,
   useEditor,
   useValue,
 } from '@tldraw/editor';
 import classNames from 'classnames';
 import { PORTRAIT_BREAKPOINT } from '../../constant';
 import { CustomMobileStylePanel } from './CustomMobileStylePanel';
-import { ExitPenMode } from './ExitPenMode';
 
 const isActiveTLUiToolItem = (
   item: TLUiToolItem,
